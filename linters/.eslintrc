@@ -1,5 +1,125 @@
-// Use this file as a starting point for your project's .eslintrc.
-// Copy this file, and add rule overrides as needed.
 {
-  "extends": "airbnb"
+  'parser': 'espree',
+  'extends': 'airbnb/base',
+  'globals': {
+    // Simply including a var here defines it as a `global`
+    // Setting it to false means that the var cannot be resassigned in user code
+    '__dirname': false,
+    'arguments': false,
+    'describe': false,
+    'exports': false,
+    'it': false,
+    'module': false,
+    'require': false
+  },
+  'env': {
+    'node': true,
+    'es6': true
+  },
+  'ecmaFeatures': {
+    // Disable features might not work in Node 4.x
+    'defaultParams': false,
+    'destructuring': false,
+    'jsx': false,
+    'objectLiteralDuplicateProperties': false,
+    'restParams': false,
+    'spread': false,
+
+    // Allow to check for `use strict` even in files with .exports
+    'modules': false
+  },
+  'rules': {
+    /*
+     *
+     * Extra ES6-related restrictions and misc AirBnB overrides
+     *
+     */
+    // Only enforce dangling commas on arrays/obj spanning multiple lines
+    'comma-dangle': [2, 'always-multiline'],
+    'constructor-super': 2,
+    // eslint's rules for this does not yet match our early-return pattern
+    'curly': 0,
+    // Functions can be anonymous when used as an argument
+    'func-names': 0,
+    // Enforces how MDN writes their generators
+    'generator-star-spacing': [2, {'before': false, 'after': true}],
+    'lines-around-comment': [2, {'beforeBlockComment': true, 'beforeLineComment': true,
+                                 'allowBlockStart': true, 'allowObjectStart': true}],
+    'no-arrow-condition': 2,
+    'no-class-assign': 2,
+    'no-dupe-class-members': 2,
+    // Allow multiple spaces only in certain situations involving aligned white spaces
+    'no-multi-spaces': [2, {
+      exceptions: {
+        'ImportDeclaration': true,
+        'Property': true,
+        'LogicalExpression': true,
+        'VariableDeclarator': true,
+      }
+    }],
+    // Do not allow shadowed functions except in cases of extremely common parameter names
+    'no-shadow': [2, { 'allow': ['callback', 'cb', 'done', 'err', 'error', 'next', 'req', 'res'] }],
+    'no-this-before-super': 2,
+    // We directly modify the `req` parameter in routing middleware
+    'no-param-reassign': [2, { 'props': false }],
+    // Only enforce shorthand on properties because doing so on methods produces weird behavior with anonymous fn
+    'object-shorthand': [2, 'properties'],
+    // We put var declarations where it is being used
+    'one-var': 0,
+    // We allow developers to add padded blocks if they aid readability
+    'padded-blocks': 0,
+    // We do not gain anything from multiline arrow functions
+    'prefer-arrow-callback': 0,
+    // Use our modded prefer-const rule so that we only enforce the rule in topmost scope
+    'prefer-const': [2, 'top-scope'],
+    'require-yield': 2,
+    // We do not like space before the first parenthesis in function decl
+    'space-before-function-paren': [2, 'never'],
+    'spaced-comment': [2, 'always', { 'markers': ['/', '*', 'global'] }],
+    'strict': [2, 'global'],
+    // AirBnB suggests this, but we have not done this and do not want(?) to
+    'vars-on-top': 0,
+
+    /*
+     *
+     * Taken & adapted from Cloudability GUI's eslint
+     *
+     */
+    'block-spacing': [2, 'always'],
+    'brace-style': [2, '1tbs', { 'allowSingleLine': false }],
+    'comma-style': [2, 'last'],
+    'consistent-this': [2, 'self'],
+    'func-style': [2, 'declaration', { 'allowArrowFunctions': true }],
+    // This is less strict than AirBnB's default rules
+    'key-spacing': [2, { 'beforeColon': false, 'afterColon': true, 'mode': 'minimum' }],
+    'new-cap': [2, {'capIsNew': false}],
+    'new-parens': 2,
+    'no-array-constructor': 2,
+    'no-continue': 2,
+    'no-lonely-if': 2,
+    'no-multiple-empty-lines': [2, { 'max': 2 }],
+    'no-unneeded-ternary': 2,
+    'object-curly-spacing': [2, 'always'],
+    'operator-linebreak': [2, 'after'],
+    'space-after-keywords': [2, 'always'],
+    'space-unary-ops': [2, { 'words': true, 'nonwords': false }],
+
+    // Stuff taken & adapted from Datahero's unfinished eslint
+    'no-alert': 2,
+    'no-bitwise': 2,
+    'no-constant-condition': 2,
+    'no-debugger': 2,
+    'no-extra-boolean-cast': 2,
+    'no-implied-eval': 2,
+    'no-label-var': 2,
+    'no-process-exit': 2,
+    'no-undef-init': 2,
+    'no-unused-vars': [2, {'vars': 'all', 'args': 'after-used',
+                           'argsIgnorePattern': 'callback|done|next',
+                           'varsIgnorePattern': '_|colors'}],
+    'no-use-before-define': [2, 'nofunc'],
+    'no-with': 2,
+    'max-len': [2, 120, 2, { 'ignoreUrls': true }],
+    'use-isnan': 2,
+  }
 }
