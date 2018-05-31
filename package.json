@@ -1,14 +1,24 @@
 {
-  "name": "airbnb-style",
+  "name": "eslint-plugin-cloudability",
   "version": "2.0.0",
   "description": "A mostly reasonable approach to JavaScript.",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "publish-all": "npm publish && cd ./packages/eslint-config-airbnb && npm publish"
+    "install:config": "cd packages/eslint-config-airbnb && npm prune && npm install",
+    "install:config:base": "cd packages/eslint-config-airbnb-base && npm prune && npm install",
+    "lint": "markdownlint --config linters/.markdownlint.json README.md */README.md",
+    "pretest": "npm run --silent lint",
+    "test": "npm run --silent test:config && npm run --silent test:config:base",
+    "test:config": "cd packages/eslint-config-airbnb; npm test",
+    "test:config:base": "cd packages/eslint-config-airbnb-base; npm test",
+    "pretravis": "npm run --silent lint",
+    "travis": "npm run --silent travis:config && npm run --silent travis:config:base",
+    "travis:config": "cd packages/eslint-config-airbnb; npm run travis",
+    "travis:config:base": "cd packages/eslint-config-airbnb-base; npm run travis"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/airbnb/javascript.git"
+    "url": "https://github.com/cloudability/javascript-style-guide.git"
   },
   "keywords": [
     "style guide",
@@ -19,10 +29,18 @@
     "react",
     "jsx"
   ],
-  "author": "Harrison Shoff <hi@hshoff.com> (https://twitter.com/hshoff)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/airbnb/javascript/issues"
+    "url": "https://github.com/cloudability/javascript-style-guide/issues"
   },
-  "homepage": "https://github.com/airbnb/javascript"
+  "homepage": "https://github.com/cloudability/javascript-style-guide",
+  "dependencies": {
+    "babel-eslint": "8.2.3",
+    "eslint": "4.19.1",
+    "eslint-import-resolver-webpack": "0.10.0",
+    "eslint-plugin-import": "2.12.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.8.2",
+    "eslint-restricted-globals": "0.1.1"
+  }
 }
